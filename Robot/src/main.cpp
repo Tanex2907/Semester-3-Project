@@ -23,6 +23,8 @@ void initWebServer() {
 
 void routes() {
     server.on("/livedata", HTTP_GET, getLiveData);
+    server.on("/start", HTTP_POST, startRobot);
+    server.on("/stop", HTTP_POST, stopRobot);
 }
 
 void handleClient() {
@@ -44,6 +46,15 @@ void getLiveData() {
     server.send(200, "application/json", response);
 }
 
+void startRobot() {
+    // Implement the logic to start the robot here
+    server.send(200, "text/plain", "Robot started");
+}
+
+void stopRobot() {
+    // Implement the logic to stop the robot here
+    server.send(200, "text/plain", "Robot stopped");
+}
 
 void setup() {
   Serial.begin(115200);
