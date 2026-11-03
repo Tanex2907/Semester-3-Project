@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -33,16 +34,23 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-  void _startStopwatch()
+  void _startStopwatch() async
   {
     if(!stopwatch.isRunning){
       stopwatch.start();
-      _updateElapsedTime;
-      isPlaying = true;
+      _updateElapsedTime();
+      setState(() {
+        isPlaying = true;
+      });
     } else {
       stopwatch.stop();
-      isPlaying = false;
+      setState(() {
+        isPlaying = false;
+      });
+      final elapsedToSave = stopwatch.elapsed;
       _resetStopwatch();
+      await _saveRuntime(elapsedToSave);
+      await _increaseTimesStarted();
     }
   }
 
@@ -61,7 +69,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   String _formatElapsedTime(Duration time){
-    return '${time.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(time.inSeconds.remainder(60)).toString().padLeft(2, '0')}.${(time.inMilliseconds % 1000 ~/ 100).toString()}';
+    return '${time.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(time.inSeconds.remainder(60)).toString().padLeft(2, '0')}';
+  }
+
+  Future<void> _increaseTimesStarted() async
+  {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('timesStarted', (prefs.getInt('timesStarted') ?? 0) + 1);
+  }
+
+  Future<void> _saveRuntime(Duration elapsed) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final currentRuntime = prefs.getInt('runtime') ?? 0;
+    await prefs.setInt('runtime', currentRuntime + elapsed.inSeconds);
   }
 
   @override
