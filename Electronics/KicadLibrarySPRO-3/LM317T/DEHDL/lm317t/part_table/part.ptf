@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'LM317T'
+CLASS = DISCRETE
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "ARROW_PART_NUMBER", "ARROW_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Analog Devices", "LM317T" (!) = "", "TO254P470X1036X1920-3P", "Transistor Outline, Vertical", "", "", "", "", "Linear Voltage Regulator IC Positive Adjustable 1 Output 1.5A TO-220", "https://datasheet.pas.partquest.com/images/VipMasterIC/IC/LITC/LITCS04748/LITCS04748-1.pdf?hkey=61A2E4C270F0397D049F8F05BD4F1054", "4.699 mm"
+END_PART
+
+END.

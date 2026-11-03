@@ -1,0 +1,9 @@
+Manufacturer=Analog Devices
+PartNumber=LM317T
+PartCategory=Transistor
+PackageCategory=Transistor Outline, Vertical
+PinCount=3
+Version=1.1
+Released=2025-08-28 04:56:16
+Downloaded=2026-11-03 15:00:01
+3D=Y
