@@ -1,16 +1,34 @@
-#include "LiveData/livedata.h"
+#include "Livedata/Livedata.h"
 
-Livedata::Livedata(int16_t battery, int16_t fullness, int16_t temperature)
-    : battery(battery), fullness(fullness), temperature(temperature) {}
-
-Livedata Livedata::fromDto(const livedataDto& dto) {
-    return Livedata(dto.battery, dto.fullness, dto.temperature);
+void Livedata::setBattery(int16_t val) {
+    portENTER_CRITICAL(&lock);
+    battery = val;
+    portEXIT_CRITICAL(&lock);
 }
 
-livedataDto Livedata::toDto(const Livedata liveData) {
-    livedataDto dto;
-    dto.battery = liveData.battery;
-    dto.fullness = liveData.fullness;
-    dto.temperature = liveData.temperature;
-    return dto;
+void Livedata::setFullness(int16_t val) {
+    portENTER_CRITICAL(&lock);
+    fullness = val;
+    portEXIT_CRITICAL(&lock);
+}
+
+void Livedata::setTemperature(int16_t val) {
+    portENTER_CRITICAL(&lock);
+    temperature = val;
+    portEXIT_CRITICAL(&lock);
+}
+
+livedataDto Livedata::toDto() {
+    portENTER_CRITICAL(&lock);
+    livedataDto snapshot{battery, fullness, temperature};
+    portEXIT_CRITICAL(&lock);
+    return snapshot; // Returns a safe copy all at once
+}
+
+void Livedata::update(int16_t bat, int16_t full, int16_t temp) {
+    portENTER_CRITICAL(&lock);
+    battery = bat;
+    fullness = full;
+    temperature = temp;
+    portEXIT_CRITICAL(&lock);
 }
