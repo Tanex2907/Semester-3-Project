@@ -95,6 +95,41 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
+  Future showTimerStopAlert(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Stop Timer'),
+          content: SizedBox(
+            height: 150,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Text('Are you sure you want to stop the timer?'),
+              ],
+            ),
+          ),
+          actions: [
+            InkWell(
+              onTap: () {
+                Navigator.pop(context); // Closes the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _startStopwatch();
+                Navigator.pop(context);
+              },
+              child: const Text('Confirm'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,7 +156,12 @@ class _HomePageState extends State<HomePage> {
 
                   child:IconButton(
                     onPressed: () {
-                      _startStopwatch();
+
+                      if(isPlaying){
+                        showTimerStopAlert(context);
+                      } else {
+                        _startStopwatch();
+                      }
                     },
                     icon: isPlaying ?
                     Icon(Icons.pause_rounded, color: Colors.red):
