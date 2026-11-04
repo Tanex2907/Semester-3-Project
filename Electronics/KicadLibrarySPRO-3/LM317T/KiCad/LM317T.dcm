@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP LM317T
+D Linear Voltage Regulator IC Positive Adjustable 1 Output 1.5A TO-220
+K
+F https://datasheet.pas.partquest.com/images/VipMasterIC/IC/LITC/LITCS04748/LITCS04748-1.pdf?hkey=61A2E4C270F0397D049F8F05BD4F1054
+$ENDCMP
+#
+#End Doc Library
