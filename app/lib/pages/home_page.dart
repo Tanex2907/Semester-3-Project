@@ -152,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                 margin: EdgeInsets.all(20),
 
                 child: LinearProgressIndicator(
-                  value: 0.6,
+                  value: livedata?.fullness != null ? livedata!.fullness / 100 : 0,
                   color: Colors.green,
                 ),
               ),
