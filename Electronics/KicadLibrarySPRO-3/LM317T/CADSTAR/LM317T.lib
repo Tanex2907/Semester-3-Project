@@ -1,0 +1,18 @@
+.LM317T :1 ;Linear Voltage Regulator IC Positive Adjustable 1 Output 1.5A TO-220
+TO254P470X1036X1920-3P
+*STM Q
+*NGS
+*PLB 1="ADJ" 2="VOUT" 3="VIN"
+*MXP 3
+*DFN LM317T
+~!Manufacturer_Name (Analog Devices)
+~!Manufacturer_Part_Number (LM317T)
+~!Mouser Part Number (-)
+~!Mouser Price/Stock (-)
+~!Arrow Part Number (-)
+~!Arrow Price/Stock (-)
+~!Link Datasheet (https://datasheet.pas.partquest.com/images/VipMasterIC/IC/LITC/LITCS04748/LITCS04748-1.pdf?hkey=61A2E4C270F0397D049F8F05BD4F1054)
+~!Height (4.699mm)
+~!3D_Model (LM317T)
+LM317T
+1.1!U 2.1!U 3.1!U 
