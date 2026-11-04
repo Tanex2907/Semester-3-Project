@@ -1,4 +1,4 @@
-#include "web/WebController.h"
+#include "network/WebController.h"
 
 WebController::WebController(Livedata& sharedData,const char* s, const char* p, uint16_t port)
     : server(port), ssid(s), password(p), data(sharedData) {}
