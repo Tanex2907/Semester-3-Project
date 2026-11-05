@@ -4552,6 +4552,30 @@
 			)
 		)
 	)
+	(global_label "GATE"
+		(shape input)
+		(at 43.18 78.74 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "183a7973-d3f6-4f9d-bf3f-5b2eb06fe644")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 35.7196 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
 	(global_label "IO21"
 		(shape input)
 		(at 227.33 48.26 180)
