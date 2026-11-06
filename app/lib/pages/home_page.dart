@@ -70,8 +70,10 @@ class _HomePageState extends State<HomePage> {
       });
       final elapsedToSave = stopwatch.elapsed;
       _resetStopwatch();
-      await _saveRuntime(elapsedToSave);
-      await _increaseTimesStarted();
+      if(elapsedToSave.inSeconds > 10) {
+        await _saveRuntime(elapsedToSave);
+        await _increaseTimesStarted();
+      }
     }
   }
 
