@@ -1,14 +1,15 @@
-#include "web/WebController.h"
+#include "network/WebController.h"
 
-WebController::WebController(Livedata& sharedData,const char* s, const char* p, uint16_t port)
-    : server(port), ssid(s), password(p), data(sharedData) {}
+WebController::WebController(Livedata& sharedData, WebServer& webServer) : server(webServer),
+    data(sharedData) {}
 
 void WebController::init() {
-    WiFi.begin(ssid, password);
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
-    }
 
+
+    server.on("/", [this]() {
+        server.send(200, "text/plain", "Hello from ESP32!");
+        Serial.println("Request received at /");
+    });
     server.on("/livedata", HTTP_GET, [this]() {
         handleLiveData(data);
     });
@@ -37,19 +38,19 @@ void WebController::handleLiveData(Livedata& livedata) {
     serializeJson(doc, response);
 
     server.send(200, "application/json", response);
+    Serial.println("Live data sent: " + response);
 }
 
 //TODO: Implement the logic to start and stop the robot in these methods
 void WebController::handleStartRobot() {
-    // Implement the logic to start the robot here
     server.send(200, "text/plain", "Robot started");
+    Serial.println("Robot started");
 }
-
 
 //TODO: Implement the logic to start and stop the robot in these methods
 void WebController::handleStopRobot() {
-    // Implement the logic to stop the robot here
     server.send(200, "text/plain", "Robot stopped");
+    Serial.println("Robot stopped");
 }
 
 
