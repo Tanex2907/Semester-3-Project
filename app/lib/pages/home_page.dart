@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../widgets/BatteryIndicator.dart';
+import '../dto/LiveData.dart';
+import '../controller/LiveDataController.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -17,12 +20,18 @@ class _HomePageState extends State<HomePage> {
   late Duration _elapsedTime;
   late String _elapsedTimeString;
   late Timer timer;
+  Livedata? livedata;
+
 
   @override
   void initState() {
     super.initState();
     _elapsedTime = Duration.zero;
     _elapsedTimeString = _formatElapsedTime(_elapsedTime);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _fetchLiveData();
+    });
 
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
@@ -31,6 +40,18 @@ class _HomePageState extends State<HomePage> {
         }
       });
     });
+  }
+
+    Future<void> _fetchLiveData() async {
+    try {
+      final data = await LiveDataController.fetchLiveData();
+      if (!mounted) return;
+      setState(() {
+        livedata = data;
+      });
+    } catch (e) {
+      debugPrint('Error fetching live data: $e');
+    }
   }
 
 
@@ -108,11 +129,8 @@ class _HomePageState extends State<HomePage> {
                   height: MediaQuery.of(context).size.width / 4,
                 margin: EdgeInsets.all(20),
 
-                child:Column(
-                  children: [
-                    Icon(Icons.battery_4_bar, color: Colors.green),
-                    Text('69 %'),
-                  ],
+                child:BatteryIndicator(
+                  batteryLevel: livedata?.battery ?? 0,
                 )
               ),
               Container(
@@ -134,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                 margin: EdgeInsets.all(20),
 
                 child: LinearProgressIndicator(
-                  value: 0.6,
+                  value: livedata?.fullness != null ? livedata!.fullness / 100 : 0,
                   color: Colors.green,
                 ),
               ),
