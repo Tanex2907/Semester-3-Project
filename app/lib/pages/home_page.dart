@@ -7,7 +7,7 @@ import '../dto/LiveData.dart';
 import '../controller/LiveDataController.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
 @override
 State<HomePage> createState() => _HomePageState();
@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                   batteryLevel: livedata?.battery ?? 0,
                 )
               ),
-              Container(
+              SizedBox(
                   width: double.infinity,
                   height: MediaQuery.of(context).size.width,
 
