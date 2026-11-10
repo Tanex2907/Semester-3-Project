@@ -1,41 +1,56 @@
 #include "network/ProvisionManager.h"
 
 const char* PROVISION_HTML = R"(
-	<!DOCTYPE html>
-	<html>
-	<head>
-	  <meta charset="utf-8">
-	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <title>WiFi Setup</title>
-	  <style>
-	    body { font-family: sans-serif; max-width: 400px; margin: 60px auto; padding: 0 20px; }
-	    input { width: 100%; padding: 8px; margin: 8px 0; box-sizing: border-box; }
-	    button { width: 100%; padding: 10px; background: #0078d4; color: white; border: none; cursor: pointer; }
-	  </style>
-	</head>
-	<body>
-	  <h2>WiFi Setup</h2>
-	  <form action="/save" method="POST">
-	    <label>SSID</label>
-	    <input type="text" name="ssid" required>
-	    <label>Password</label>
-	    <input type="password" name="password">
-	    <button type="submit">Save and Reboot</button>
-	  </form>
-	</body>
-	</html>
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WiFi Setup</title>
+    <style>
+      body { font-family: sans-serif; max-width: 400px; margin: 60px auto; padding: 0 20px; }
+      input { width: 100%; padding: 8px; margin: 8px 0; box-sizing: border-box; }
+      button { width: 100%; padding: 10px; background: #0078d4; color: white; border: none; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <h2>WiFi Setup</h2>
+    <form action="/save" method="POST">
+      <label>SSID</label>
+      <input type="text" name="ssid" required>
+      <label>Password</label>
+      <input type="password" name="password">
+      <button type="submit">Save and Reboot</button>
+    </form>
+  </body>
+  </html>
 )";
 
-ProvisionManager::ProvisionManager(WebServer& server) : server(server) {}
+
+
+ProvisionManager::ProvisionManager(WebServer& server, PubSubClient& client) 
+    : server(server), client(client) {}
+
+const char* ProvisionManager::generateID()
+{
+  randomSeed(analogRead(0));
+  int i = 0;
+  for(i = 0; i < sizeof(id) - 1; i++) {
+    id[i] = chars[random(sizeof(chars))];
+  }
+  id[sizeof(id) -1] = '\0';
+
+  return id;
+}
 
 bool ProvisionManager::loadCredentials() {
-	preferences.begin("wifi", true);
-	bool exists = preferences.getBytesLength("creds") == sizeof(credentials);
-	if (exists) {
-	    preferences.getBytes("creds", &credentials, sizeof(credentials));
-	}
-	preferences.end();
-	return exists;
+  preferences.begin("wifi", true);
+  bool exists = preferences.getBytesLength("creds") == sizeof(credentials);
+  if (exists) {
+      preferences.getBytes("creds", &credentials, sizeof(credentials));
+  }
+  preferences.end();
+  return exists;
 }
 
 void ProvisionManager::saveCredentials() {
@@ -55,42 +70,45 @@ void ProvisionManager::handleRoot() {
 }
 
 void ProvisionManager::handleSaveCredentials() {
-
-	if (!server.hasArg("ssid") || server.arg("ssid").isEmpty()) {
-	    server.send(400, "text/plain", "SSID required");
-	    return;
-	}
-	 
-	server.arg("ssid").toCharArray(credentials.ssid, sizeof(credentials.ssid));
-	server.arg("password").toCharArray(credentials.password, sizeof(credentials.password));
-	 
-	saveCredentials();
-	 
-	server.send(200, "text/plain", "Saved. Rebooting...");
-	server.handleClient();
-	delay(1000);
-	ESP.restart();
+  if (!server.hasArg("ssid") || server.arg("ssid").isEmpty()) {
+      server.send(400, "text/plain", "SSID required");
+      return;
+  }
+   
+  server.arg("ssid").toCharArray(credentials.ssid, sizeof(credentials.ssid));
+  server.arg("password").toCharArray(credentials.password, sizeof(credentials.password));
+   
+  saveCredentials();
+   
+  server.send(200, "text/plain", "Saved. Rebooting...");
+  delay(1000);
+  ESP.restart();
 }
 
 void ProvisionManager::startProvisioning() {
     WiFi.mode(WIFI_AP);
     WiFi.softAP(AP_SSID, AP_PASSWORD);
-    WiFi.softAPConfig(AP_IP, AP_IP, AP_SUBNET);
+    WiFi.softAPConfig(IPAddress(192, 168, 4, 1), IPAddress(192, 168, 4, 1), IPAddress(255, 255, 255, 0));
 
-    dnsServer.start(53, "*", AP_IP);
+    dnsServer.start(53, "*", IPAddress(192, 168, 4, 1));
 
     server.on("/", [this]() { handleRoot(); });
     server.on("/save", [this]() { handleSaveCredentials(); });
     server.onNotFound([this]() { handleRoot(); });
     server.begin();
 
+    Serial.println("Provisioning portal started. Connect to 'Robot' AP to configure WiFi.");
     while (true) {
         dnsServer.processNextRequest();
         server.handleClient();
+        delay(2);
     }
 }
 
 void ProvisionManager::initWiFi() {
+  // Bind PubSubClient to the member wifiClient instance
+  client.setClient(wifiClient);
+
   if (!loadCredentials()) {
     Serial.println("No WiFi credentials found. Starting provisioning...");
     startProvisioning();
@@ -101,9 +119,16 @@ void ProvisionManager::initWiFi() {
 
   WiFi.mode(WIFI_STA);
   WiFi.begin(credentials.ssid, credentials.password);
+  
+  unsigned long startAttemptTime = millis();
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
+    if (millis() - startAttemptTime > 20000) {
+      Serial.println("\nFailed to connect. Clearing credentials and restarting provisioning...");
+      clearCredentials();
+      startProvisioning();
+    }
   }
 
   Serial.println("");
@@ -111,12 +136,5 @@ void ProvisionManager::initWiFi() {
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 
-  if (!MDNS.begin(MDNS_HOSTNAME)) {
-    Serial.println("Error setting up MDNS responder!");
-  } else {
-    Serial.println("mDNS responder started");
-  }
-
-  MDNS.addService("http", "tcp", 80);
-  Serial.println("mDNS responder started. Access your ESP32 at http://" + String(MDNS_HOSTNAME) + ".local");
+  client.setServer("mqtt.beebotte.com", 1883);
 }
