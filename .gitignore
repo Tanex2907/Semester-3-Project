@@ -47,3 +47,4 @@
 # Widget Preview related
 /app/.widget_preview/
 app/config/private.json
+Robot/include/keys.h
