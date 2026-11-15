@@ -6,15 +6,12 @@
 
 class WebController {
 private:
-    WebServer server;
+    WebServer& server;
     Livedata& data;
-
-    const char* ssid;
-    const char* password;
 
 
 public:
-    WebController(Livedata& sharedData,const char* s, const char* p, uint16_t port = 80);
+    WebController(Livedata& sharedData, WebServer& webServer);
     void init();
     void handleClient();
     void handleLiveData(Livedata& livedata);

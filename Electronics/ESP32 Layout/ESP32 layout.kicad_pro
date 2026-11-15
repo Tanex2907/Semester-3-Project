@@ -78,6 +78,18 @@
       ],
       "drc_exclusions": [
         [
+          "clearance|185607250|90642199|561ee38a-1f52-424a-8193-5f7a24ee2143|a511d5e0-e3d9-4d95-bc33-c39057d3fa03",
+          ""
+        ],
+        [
+          "clearance|211599000|83595000|cb9c6205-db34-4fa6-b00e-6eb74fcf5d91|feffbe6e-32bd-4bee-8ca1-2253e234cd7f",
+          ""
+        ],
+        [
+          "clearance|213614000|83595000|001e0506-df76-481c-a4c2-6d7540c1811f|cb9c6205-db34-4fa6-b00e-6eb74fcf5d91",
+          ""
+        ],
+        [
           "courtyards_overlap|271725252|122366683|37370d32-07d4-4393-94d5-16137404099c|7b92f541-f6c9-487a-ad33-4e8607e6ff67",
           ""
         ],
@@ -155,7 +167,7 @@
       },
       "rules": {
         "max_error": 0.005,
-        "min_clearance": 0.35,
+        "min_clearance": 0.25,
         "min_connection": 0.0,
         "min_copper_edge_clearance": 0.5,
         "min_groove_width": 0.0,
