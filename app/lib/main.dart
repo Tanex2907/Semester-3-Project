@@ -1,3 +1,4 @@
+import 'package:app/MQTTManager.dart';
 import 'package:flutter/material.dart';
 import 'pages/home_page.dart';
 import 'pages/settings_page.dart';
@@ -32,42 +33,74 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int currentPageIndex = 0;
-  NavigationDestinationLabelBehavior labelBehavior = .alwaysShow;
+  NavigationDestinationLabelBehavior labelBehavior = NavigationDestinationLabelBehavior.alwaysShow;
+  late MQTTManager manager;
+  late List<Widget> _pages;
 
-  final List<Widget> _pages = [
-    HomePage(),
-    StatsPage(),
-    SettingsPage(),
-  ];
+    @override
+  void initState() {
+    super.initState();
+    manager = MQTTManager(topic: 'app/test');
+    _configureAndConnect();
+
+    _pages = [
+      HomePage(manager: manager),
+      StatsPage(),
+      SettingsPage(),
+    ];
+  }
+
+
+
+  void _configureAndConnect() async {
+    manager = MQTTManager(topic: 'app/test');
+    await manager.initializeAndConnect();
+  }
+
+  void _disconnect() {
+    manager.disconnect();
+  }
 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pages[currentPageIndex],
-      bottomNavigationBar: NavigationBar(
-        labelBehavior: labelBehavior,
-        selectedIndex: currentPageIndex,
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-      destinations: const <Widget>[
-        NavigationDestination(
-          icon: Icon(Icons.home),
-          label: 'Home',
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      ),
+      home: Scaffold(
+        body: _pages[currentPageIndex],
+        bottomNavigationBar: NavigationBar(
+          labelBehavior: labelBehavior,
+          selectedIndex: currentPageIndex,
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPageIndex = index;
+            });
+          },
+          destinations: const <Widget>[
+            NavigationDestination(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.stacked_bar_chart),
+              label: 'Stats',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+            ),
+          ],
         ),
-        NavigationDestination(
-          icon: Icon(Icons.stacked_bar_chart),
-          label: 'Stats',
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.settings),
-          label: 'Settings',
-        ),
-      ],
       ),
     );
+  }
+
+  @override
+  void deactivate() {
+    _disconnect();
+    super.deactivate();
   }
 }
