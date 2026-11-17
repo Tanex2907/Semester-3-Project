@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:app/dto/LiveData.dart';
 import 'package:http/http.dart' as http;
 
-//TODO add permissions to manifest for building so that we can access internet
 class LiveDataController  {
   static Future<Livedata> fetchLiveData() async
   {
@@ -19,6 +17,5 @@ class LiveDataController  {
       throw Exception('Failed to load Livedata');
     }
   }
-
 }
 
