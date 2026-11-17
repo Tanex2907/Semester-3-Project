@@ -5680,7 +5680,7 @@
 			)
 		)
 	)
-	(global_label "GND"
+	(global_label "x"
 		(shape input)
 		(at 139.7 41.91 0)
 		(fields_autoplaced yes)
@@ -5694,7 +5694,7 @@
 		)
 		(uuid "0879f69b-404f-4456-914d-99100ffd9bc1")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 147.0317 41.91 0)
+			(at 144.1893 41.91 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6216,7 +6216,7 @@
 			)
 		)
 	)
-	(global_label "X"
+	(global_label "Blower"
 		(shape input)
 		(at 109.22 36.83 180)
 		(fields_autoplaced yes)
@@ -6230,7 +6230,7 @@
 		)
 		(uuid "401ba706-69e1-486d-b22a-6f115989f1be")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 104.5493 36.83 0)
+			(at 99.4693 36.83 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6370,7 +6370,7 @@
 			)
 		)
 	)
-	(global_label "GND"
+	(global_label "x"
 		(shape input)
 		(at 139.7 39.37 0)
 		(fields_autoplaced yes)
@@ -6384,7 +6384,7 @@
 		)
 		(uuid "5a4c8fab-693c-4545-a40a-8812027285c1")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 147.0317 39.37 0)
+			(at 144.1893 39.37 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6574,7 +6574,7 @@
 			)
 		)
 	)
-	(global_label "GND"
+	(global_label "x"
 		(shape input)
 		(at 139.7 44.45 0)
 		(fields_autoplaced yes)
@@ -6588,7 +6588,7 @@
 		)
 		(uuid "805546af-cbc2-46ab-9756-298fb4c501b0")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 147.0317 44.45 0)
+			(at 144.1893 44.45 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7056,7 +7056,7 @@
 			)
 		)
 	)
-	(global_label "X"
+	(global_label "Blower"
 		(shape input)
 		(at 109.22 39.37 180)
 		(fields_autoplaced yes)
@@ -7070,7 +7070,7 @@
 		)
 		(uuid "d096df9d-2cba-47e3-854e-7cef957b016a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 104.5493 39.37 0)
+			(at 99.4693 39.37 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
