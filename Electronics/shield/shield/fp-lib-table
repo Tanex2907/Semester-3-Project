@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "shield-footprint-lib") (type "KiCad") (uri "${KIPRJMOD}/shield-footprint-lib.pretty") (options "") (descr ""))
+)

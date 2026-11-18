@@ -1578,6 +1578,42 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "SERVO"
+		(exclude_from_sim no)
+		(at 52.07 43.18 0)
+		(effects
+			(font
+				(size 2.54 2.54)
+				(thickness 0.508)
+				(bold yes)
+			)
+		)
+		(uuid "d40cb849-625b-42f6-9cb1-f07617dc4aca")
+	)
+	(text "VACUUM + BRUSH"
+		(exclude_from_sim no)
+		(at 141.224 29.464 0)
+		(effects
+			(font
+				(size 2.54 2.54)
+				(thickness 0.508)
+				(bold yes)
+			)
+		)
+		(uuid "d9934be2-843c-435a-a4f1-373604a5e06a")
+	)
+	(text "LOCO"
+		(exclude_from_sim no)
+		(at 228.092 33.782 0)
+		(effects
+			(font
+				(size 2.54 2.54)
+				(thickness 0.508)
+				(bold yes)
+			)
+		)
+		(uuid "eab0d34f-eba7-4b13-8194-fc2a9f89ac23")
+	)
 	(junction
 		(at 135.89 85.09)
 		(diameter 0)
@@ -2674,7 +2710,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
 			(at 242.316 80.01 0)
 			(hide yes)
 			(show_name no)
@@ -2754,7 +2790,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
 			(at 213.106 80.01 0)
 			(hide yes)
 			(show_name no)
@@ -2812,7 +2848,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "37ef0a95-86ce-4219-8d1c-7890c517f629")
 		(property "Reference" "U4"
 			(at 227.33 46.99 0)
@@ -2824,8 +2859,8 @@
 				)
 			)
 		)
-		(property "Value" ""
-			(at 227.33 46.99 0)
+		(property "Value" "DRI0044"
+			(at 232.918 46.99 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2834,7 +2869,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "shield-footprint-lib:DRI0044"
 			(at 227.33 46.99 0)
 			(hide yes)
 			(show_name no)
@@ -3311,7 +3346,7 @@
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -3497,7 +3532,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical"
 			(at 52.07 63.246 0)
 			(hide yes)
 			(show_name no)
@@ -3756,7 +3791,7 @@
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
