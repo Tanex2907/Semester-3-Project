@@ -11,14 +11,18 @@ typedef struct {
     char password[64];
 } Credentials;
 
-#define MDNS_HOSTNAME "robot"
+const IPAddress AP_IP(192, 168, 4, 1);
+const IPAddress AP_SUBNET(255, 255, 255, 0);
+
+class WebServer;
+class DNSServer;
 
 class ProvisionManager {
 private:
     Preferences preferences;
     Credentials credentials;
     WebServer& server;
-    DNSServer dnsServer;
+    DNSServer* dnsServer;
     PubSubClient& client;
     WiFiClient wifiClient;
     const char chars[63] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";

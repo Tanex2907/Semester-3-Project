@@ -11,13 +11,17 @@ WiFiClient espClient;
 PubSubClient client(espClient);
 ProvisionManager provisionManager(server, client);
 
-int sendFlag = 0;
+int startmillis;
+int currentmillis;
+int ledPin = 17;
 
 void reconnect() {
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
-    if (client.connect(provisionManager.generateID(), CHANNEL, "")) {
+    if (client.connect(provisionManager.generateID(), USER, PWD)) {
       Serial.println("connected");
+      client.subscribe("cmd/start");
+      client.subscribe("cmd/stop");
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -27,9 +31,31 @@ void reconnect() {
   }
 }
 
+void callback(char* topic, byte* message, unsigned int length) {
+  String messageTemp;
+  
+  for (int i = 0; i < length; i++) {
+    Serial.print((char)message[i]);
+    messageTemp += (char)message[i];
+  }
+
+  if (String(topic) == "cmd/start") {
+    Serial.print("Changing output to high");
+    digitalWrite(ledPin, HIGH);
+  }
+  if(String(topic) == "cmd/stop")
+  {
+    Serial.print("Changing output to low");
+    digitalWrite(ledPin, LOW);
+  }
+}
+
 void setup() {
   Serial.begin(115200);
   provisionManager.initWiFi();
+  startmillis = millis();
+  client.setCallback(callback);
+  pinMode(ledPin, OUTPUT);
 }
 
 void loop() {
@@ -39,20 +65,21 @@ void loop() {
     }
     client.loop();
   }
+  currentmillis = millis();
 
-  if (sendFlag == 0 && client.connected()) {
+  if (currentmillis - startmillis > 1000) {
     livedataDto snapshot = livedata.toDto();
     JsonDocument doc;
-    doc["battery"] = snapshot.battery;
-    doc["temperature"] = snapshot.temperature;
-    doc["fullness"] = snapshot.fullness;
+    doc["battery"] = random(0,100);
+    doc["temperature"] = random(0,100);
+    doc["fullness"] = random(0,100);
 
     char buffer[256];
 
-    client.publish("app/livedata", buffer);
     serializeJson(doc, buffer);
-
-    sendFlag = 1;
+    client.publish("telemetry/livedata", buffer, true);
+    startmillis = currentmillis;
     Serial.println("send livedata");
   }
+
 }

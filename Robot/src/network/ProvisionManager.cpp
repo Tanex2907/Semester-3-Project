@@ -1,4 +1,8 @@
 #include "network/ProvisionManager.h"
+#include <WiFi.h>
+#include <WebServer.h>
+#include <DNSServer.h>
+#include "keys.h"
 
 const char* PROVISION_HTML = R"(
   <!DOCTYPE html>
@@ -90,7 +94,7 @@ void ProvisionManager::startProvisioning() {
     WiFi.softAP(AP_SSID, AP_PASSWORD);
     WiFi.softAPConfig(IPAddress(192, 168, 4, 1), IPAddress(192, 168, 4, 1), IPAddress(255, 255, 255, 0));
 
-    dnsServer.start(53, "*", IPAddress(192, 168, 4, 1));
+    dnsServer->start(53, "*", AP_IP);
 
     server.on("/", [this]() { handleRoot(); });
     server.on("/save", [this]() { handleSaveCredentials(); });
@@ -99,7 +103,7 @@ void ProvisionManager::startProvisioning() {
 
     Serial.println("Provisioning portal started. Connect to 'Robot' AP to configure WiFi.");
     while (true) {
-        dnsServer.processNextRequest();
+        dnsServer->processNextRequest();
         server.handleClient();
         delay(2);
     }
@@ -136,5 +140,5 @@ void ProvisionManager::initWiFi() {
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 
-  client.setServer("mqtt.beebotte.com", 1883);
+  client.setServer(BROKER, 1883);
 }
