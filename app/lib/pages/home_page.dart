@@ -5,9 +5,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/BatteryIndicator.dart';
 import '../dto/LiveData.dart';
 import '../controller/LiveDataController.dart';
+import 'package:app/MQTTManager.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({
+    super.key,
+    required this.manager,
+  });
+
+  final MQTTManager manager;
 
 @override
 State<HomePage> createState() => _HomePageState();
@@ -26,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+
     _elapsedTime = Duration.zero;
     _elapsedTimeString = _formatElapsedTime(_elapsedTime);
 
@@ -62,11 +69,13 @@ class _HomePageState extends State<HomePage> {
       _updateElapsedTime();
       setState(() {
         isPlaying = true;
+        widget.manager.publishMessage('app/test', 'start');
       });
     } else {
       stopwatch.stop();
       setState(() {
         isPlaying = false;
+        widget.manager.publishMessage('app/test', 'stop');
       });
       final elapsedToSave = stopwatch.elapsed;
       _resetStopwatch();
@@ -170,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                   batteryLevel: livedata?.battery ?? 0,
                 )
               ),
-              Container(
+              SizedBox(
                   width: double.infinity,
                   height: MediaQuery.of(context).size.width,
 
