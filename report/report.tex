@@ -1,0 +1,99 @@
+\documentclass[a4paper, 12pt]{report}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage[parfill]{parskip}
+\usepackage{lipsum}
+\usepackage{todonotes}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{plantuml}
+\usepackage{hyperref}
+\usepackage{array}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue
+}
+
+\title{Vacuum Robot \\  \large Semester Project Report \\ BEng-8D}
+\author{
+    Lukas Pillibeit \\
+    Luis Manso Velasco \\
+    Jessica Gomes Tavares \\
+    Alain Ordoñez Ibarra \\
+    Gabriele Gandolfo \\
+    Francisco Javier Calles Ortega \\
+    \\
+    \\
+    Bachelor of Engineering \\
+    Semester 3 \\
+    SPRO3 \\
+    23.12.2026
+         }
+\date{May 2026}
+
+\begin{document}
+
+\maketitle
+
+\pagenumbering{roman}
+\tableofcontents
+\listoffigures
+\listoftables
+\clearpage
+
+\pagenumbering{arabic}
+
+\chapter{Introduction}
+\input{introduction/background.tex}
+\input{introduction/marketAnalysis.tex}
+\input{introduction/problemFormulation.tex}
+\input{introduction/scope.tex}
+\input{introduction/riskAnalysis.tex}
+
+\chapter{Methodology}
+
+\input{methodology/approach.tex}
+\input{methodology/methodsTools.tex}
+\input{methodology/datacollection.tex}
+\input{methodology/validationstrategy.tex}
+
+\chapter{Design and Development}
+Explain how a solution was developed to meet the requirements and specifications. 
+
+\input{designAndDevelopment/conceptGeneration.tex}
+\input{designAndDevelopment/evaluation.tex}
+\input{designAndDevelopment/systemDesign.tex}
+\input{designAndDevelopment/engineeringAnalysis.tex}
+\input{designAndDevelopment/prototype.tex}
+
+\chapter{Results}
+Present the final tests, measured results, verification, and interpretation.
+
+\input{results/experimentalSetup.tex}
+\input{results/results.tex}
+\input{results/requirementVerification.tex}
+\input{results/discussion.tex}
+
+\chapter{Conclusion and Future Work}
+Close the report by answering the problem formulation and identifying justified next steps.
+
+\input{conclusion/conclusion.tex}
+\input{conclusion/futureWork.tex}
+
+
+\clearpage
+
+\bibliographystyle{unsrturl}
+\bibliography{refs/refs}
+
+\clearpage
+
+\input{ai/aiUseDeclaration.tex}
+
+\appendix
+
+\end{document}
