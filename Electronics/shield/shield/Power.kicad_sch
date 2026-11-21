@@ -4287,7 +4287,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline"
+		(property "Footprint" "Package_TO_SOT_THT:TO-92_HandSolder"
 			(at 232.41 141.605 0)
 			(hide yes)
 			(show_name no)
