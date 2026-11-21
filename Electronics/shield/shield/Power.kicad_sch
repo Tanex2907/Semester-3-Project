@@ -1390,7 +1390,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Transistor_FET:Q_PMOS_DGS"
+		(symbol "Transistor_FET:Q_PMOS_GDS"
 			(pin_names
 				(offset 0)
 				(hide yes)
@@ -1411,7 +1411,7 @@
 					(justify left)
 				)
 			)
-			(property "Value" "Q_PMOS_DGS"
+			(property "Value" "Q_PMOS_GDS"
 				(at 5.08 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1444,7 +1444,7 @@
 					)
 				)
 			)
-			(property "Description" "P-MOSFET transistor, drain/gate/source"
+			(property "Description" "P-MOSFET transistor, gate/drain/source"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1466,7 +1466,7 @@
 					)
 				)
 			)
-			(symbol "Q_PMOS_DGS_0_1"
+			(symbol "Q_PMOS_GDS_0_1"
 				(polyline
 					(pts
 						(xy 0.254 1.905) (xy 0.254 -1.905)
@@ -1633,11 +1633,11 @@
 					)
 				)
 			)
-			(symbol "Q_PMOS_DGS_1_1"
-				(pin passive line
-					(at 2.54 5.08 270)
+			(symbol "Q_PMOS_GDS_1_1"
+				(pin input line
+					(at -5.08 0 0)
 					(length 2.54)
-					(name "D"
+					(name "G"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1652,10 +1652,10 @@
 						)
 					)
 				)
-				(pin input line
-					(at -5.08 0 0)
+				(pin passive line
+					(at 2.54 5.08 270)
 					(length 2.54)
-					(name "G"
+					(name "D"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3386,6 +3386,89 @@
 		)
 	)
 	(symbol
+		(lib_id "Transistor_FET:Q_PMOS_GDS")
+		(at 246.38 127 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3a29d167-9519-4483-be1c-a2cbab571ec3")
+		(property "Reference" "Q2"
+			(at 246.38 118.11 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Q_PMOS_GDS"
+			(at 246.38 120.65 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 243.84 121.92 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 246.38 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "P-MOSFET transistor, gate/drain/source"
+			(at 246.38 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "a1d2ea7c-9f08-423b-aa71-e30aa06bdefe")
+		)
+		(pin "3"
+			(uuid "0aff8772-7c13-41a7-9688-eede76a4fd2f")
+		)
+		(pin "2"
+			(uuid "64e08913-dce2-44dc-88b8-eaabae06561b")
+		)
+		(instances
+			(project "shield"
+				(path "/10f73b06-f992-42ef-a111-62ef459db8ef/57502eba-414e-4762-bca4-87a533c845bb"
+					(reference "Q2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 229.87 156.21 0)
 		(unit 1)
@@ -3772,88 +3855,6 @@
 			(project "shield"
 				(path "/10f73b06-f992-42ef-a111-62ef459db8ef/57502eba-414e-4762-bca4-87a533c845bb"
 					(reference "R3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Transistor_FET:Q_PMOS_DGS")
-		(at 246.38 127 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "604b461d-f4d5-4112-9f9f-ce66260f95a2")
-		(property "Reference" "Q3"
-			(at 246.38 118.11 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Q_PMOS_DGS"
-			(at 246.38 120.65 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
-			(at 243.84 121.92 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 246.38 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "P-MOSFET transistor, drain/gate/source"
-			(at 246.38 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "11867092-b246-4393-bf61-5fc731ead7b3")
-		)
-		(pin "3"
-			(uuid "45d4136a-ebea-42af-bf50-02454c6132da")
-		)
-		(pin "2"
-			(uuid "745c1065-caea-42be-946f-4b2394818ac0")
-		)
-		(instances
-			(project "shield"
-				(path "/10f73b06-f992-42ef-a111-62ef459db8ef/57502eba-414e-4762-bca4-87a533c845bb"
-					(reference "Q3")
 					(unit 1)
 				)
 			)
