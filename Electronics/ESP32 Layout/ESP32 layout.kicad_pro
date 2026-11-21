@@ -39,9 +39,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.0,
-          "height": 0.3556,
-          "width": 0.8825
+          "drill": 1.3,
+          "height": 2.6,
+          "width": 2.6
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -78,23 +78,11 @@
       ],
       "drc_exclusions": [
         [
-          "clearance|185607250|90642199|561ee38a-1f52-424a-8193-5f7a24ee2143|a511d5e0-e3d9-4d95-bc33-c39057d3fa03",
-          ""
-        ],
-        [
           "clearance|211599000|83595000|cb9c6205-db34-4fa6-b00e-6eb74fcf5d91|feffbe6e-32bd-4bee-8ca1-2253e234cd7f",
           ""
         ],
         [
           "clearance|213614000|83595000|001e0506-df76-481c-a4c2-6d7540c1811f|cb9c6205-db34-4fa6-b00e-6eb74fcf5d91",
-          ""
-        ],
-        [
-          "courtyards_overlap|271725252|122366683|37370d32-07d4-4393-94d5-16137404099c|7b92f541-f6c9-487a-ad33-4e8607e6ff67",
-          ""
-        ],
-        [
-          "npth_inside_courtyard|272098000|125794000|5932f707-92f2-426e-bea3-bb80ad6bc88c|37370d32-07d4-4393-94d5-16137404099c",
           ""
         ]
       ],
@@ -564,7 +552,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "../SPRO3MC_E26_G8D_pcb_design_v1_0/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
@@ -699,7 +687,7 @@
         "uuid": "a464ff6a-f02b-4198-8aa6-67a2f3c249af"
       }
     ],
-    "used_designators": "U8",
+    "used_designators": "#PWR9,#PWR19-24,C1-2,C4,Q1-2,R1-4,R6-7,U4,U8",
     "variants": []
   },
   "sheets": [
