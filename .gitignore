@@ -48,4 +48,6 @@
 /app/.widget_preview/
 app/config/private.json
 Robot/include/keys.h
-app/lib/config/private.json
+iterations/iterations.aux
+iterations/iterations.log
+Robot/include/api/secrets.h
