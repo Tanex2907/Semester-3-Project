@@ -50,3 +50,4 @@ app/config/private.json
 Robot/include/keys.h
 iterations/iterations.aux
 iterations/iterations.log
+Robot/include/api/secrets.h
