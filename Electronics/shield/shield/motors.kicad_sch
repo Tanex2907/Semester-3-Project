@@ -2706,6 +2706,30 @@
 			)
 		)
 	)
+	(global_label "LOAD_VOLTAGE_11V"
+		(shape input)
+		(at 151.13 118.11 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "3fcb55ef-d6a0-4060-bffd-330cb715e966")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 151.13 139.1776 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
 	(global_label "VACUUM-"
 		(shape input)
 		(at 132.08 177.8 180)
@@ -3429,85 +3453,6 @@
 			(project "shield"
 				(path "/10f73b06-f992-42ef-a111-62ef459db8ef/590d02e4-5226-4fce-a73e-ea25ee0a37b6"
 					(reference "M4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+5V")
-		(at 151.13 118.11 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "208a6f99-e859-4ad5-a2c7-1e288f966238")
-		(property "Reference" "#PWR048"
-			(at 154.94 118.11 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "+5V"
-			(at 147.32 118.1099 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 151.13 118.11 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 151.13 118.11 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 151.13 118.11 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "af39861b-a8f8-49d6-ad2c-ffd6fef2962f")
-		)
-		(instances
-			(project "shield"
-				(path "/10f73b06-f992-42ef-a111-62ef459db8ef/590d02e4-5226-4fce-a73e-ea25ee0a37b6"
-					(reference "#PWR048")
 					(unit 1)
 				)
 			)
