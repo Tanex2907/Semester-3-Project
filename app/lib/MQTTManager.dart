@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app/dto/LiveData.dart';
+import 'package:app/widgets/connectionToast.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'dart:convert';
@@ -94,10 +95,12 @@ class MQTTManager {
   void onConnected() {
     print('MQTTManager::onConnected - Connected to the broker');
     client.subscribe(topic, MqttQos.atLeastOnce);
+    showConnectionSnackBar(isConnected: true);
   }
 
   void onDisconnected() {
     print('MQTTManager::onDisconnected - Disconnected from the broker');
+    showConnectionSnackBar(isConnected: false);
   }
 
   void onSubscribed(String topic) {
