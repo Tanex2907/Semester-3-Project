@@ -40,12 +40,12 @@ class _MyHomePageState extends State<MyHomePage> {
     @override
   void initState() {
     super.initState();
-    manager = MQTTManager(topic: 'app/test');
+    manager = MQTTManager(topic: 'telemetry/#');
     _configureAndConnect();
 
     _pages = [
       HomePage(manager: manager),
-      StatsPage(),
+      StatsPage(manager: manager),
       SettingsPage(),
     ];
   }
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   void _configureAndConnect() async {
-    manager = MQTTManager(topic: 'app/test');
+    manager = MQTTManager(topic: 'telemetry/#');
     await manager.initializeAndConnect();
   }
 

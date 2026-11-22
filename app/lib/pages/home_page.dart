@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/BatteryIndicator.dart';
 import '../dto/LiveData.dart';
-import '../controller/LiveDataController.dart';
 import 'package:app/MQTTManager.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   late String _elapsedTimeString;
   late Timer timer;
   Livedata? livedata;
+  StreamSubscription<Livedata>? _livedataSub;
 
 
   @override
@@ -37,7 +37,16 @@ class _HomePageState extends State<HomePage> {
     _elapsedTimeString = _formatElapsedTime(_elapsedTime);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _fetchLiveData();
+      livedata = widget.manager.latestLivedata;
+      
+      _livedataSub = widget.manager.livedataStream.listen(
+        (data) {
+          if(!mounted) return;
+          setState(() {
+            livedata = data;
+          });
+        }
+      );
     });
 
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -49,33 +58,23 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-    Future<void> _fetchLiveData() async {
-    try {
-      final data = await LiveDataController.fetchLiveData();
-      if (!mounted) return;
-      setState(() {
-        livedata = data;
-      });
-    } catch (e) {
-      debugPrint('Error fetching live data: $e');
-    }
-  }
-
 
   void _startStopwatch() async
   {
     if(!stopwatch.isRunning){
+
       stopwatch.start();
       _updateElapsedTime();
       setState(() {
         isPlaying = true;
-        widget.manager.publishMessage('app/test', 'start');
+      widget.manager.publishMessage("cmd/start", "");
       });
     } else {
+
       stopwatch.stop();
       setState(() {
         isPlaying = false;
-        widget.manager.publishMessage('app/test', 'stop');
+        widget.manager.publishMessage("cmd/stop", "");
       });
       final elapsedToSave = stopwatch.elapsed;
       _resetStopwatch();
@@ -125,6 +124,7 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     timer.cancel();
     super.dispose();
+    _livedataSub?.cancel();
   }
 
   Future showTimerStopAlert(BuildContext context) {

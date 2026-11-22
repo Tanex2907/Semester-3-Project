@@ -4,10 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../dto/LiveData.dart';
 import '../widgets/StatCard.dart';
-import '../controller/LiveDataController.dart';
+import 'package:app/MQTTManager.dart';
 
 class StatsPage extends StatefulWidget {
-  const StatsPage({super.key});
+  const StatsPage({
+    super.key,
+    required this.manager,
+    });
+
+  final MQTTManager manager;
 
   @override
   State<StatsPage> createState() => _StatsPageState();
@@ -19,7 +24,7 @@ class _StatsPageState extends State<StatsPage> {
   int? timesStarted;
 
   Livedata? livedata;
-  Timer? _timer;
+  StreamSubscription<Livedata>? _livedataSub;
 
   //TODO only use this for lifetime stats since we fetch the live ones from the ESP constantly
   Future<void> _getPersistenceData() async
@@ -35,34 +40,27 @@ class _StatsPageState extends State<StatsPage> {
     });
   }
 
-  Future<void> _fetchLiveData() async {
-    try {
-      final data = await LiveDataController.fetchLiveData();
-      if (!mounted) return;
-      setState(() {
-        livedata = data;
-      });
-    } catch (e) {
-      debugPrint('Error fetching live data: $e');
-    }
-  }
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _getPersistenceData();
-      _fetchLiveData();
-    });
-
-    _timer = Timer.periodic(const Duration(minutes: 1), (timer) {
-      _fetchLiveData();
+      livedata = widget.manager.latestLivedata;
+      
+      _livedataSub = widget.manager.livedataStream.listen(
+        (data) {
+          if(!mounted) return;
+          setState(() {
+            livedata = data;
+          });
+        }
+      );
     });
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
+    _livedataSub?.cancel();
     super.dispose();
   }
 

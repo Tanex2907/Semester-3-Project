@@ -58,3 +58,6 @@ report/report.out
 report/report.pytxcode
 report/report.synctex.gz
 report/report.toc
+iterations/iterations.aux
+iterations/iterations.log
+Robot/include/api/secrets.h

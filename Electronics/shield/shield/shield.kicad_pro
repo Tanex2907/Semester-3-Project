@@ -39,9 +39,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.8,
-          "height": 1.27,
-          "width": 1.27
+          "drill": 0.0,
+          "height": 0.35,
+          "width": 1.025
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -140,7 +140,7 @@
       },
       "rules": {
         "max_error": 0.005,
-        "min_clearance": 0.0,
+        "min_clearance": 0.25,
         "min_connection": 0.0,
         "min_copper_edge_clearance": 0.5,
         "min_groove_width": 0.0,
@@ -153,7 +153,7 @@
         "min_text_height": 0.8,
         "min_text_thickness": 0.08,
         "min_through_hole_diameter": 0.3,
-        "min_track_width": 0.2,
+        "min_track_width": 0.25,
         "min_via_annular_width": 0.1,
         "min_via_diameter": 0.5,
         "solder_mask_to_copper_clearance": 0.0,
@@ -263,7 +263,24 @@
     "equivalence_files": []
   },
   "erc": {
-    "erc_exclusions": [],
+    "erc_exclusions": [
+      [
+        "footprint_filter|1803400|508000|4a55f12c-21ac-4654-96f9-138fd5395be1|00000000-0000-0000-0000-000000000000|||",
+        "intended casuse it is not on our board"
+      ],
+      [
+        "footprint_filter|520700|584200|bb034218-9b01-42e5-8fa9-7f29fd7b6070|00000000-0000-0000-0000-000000000000|||",
+        "intended cause the servo is not on the board and thus needs a jst connector"
+      ],
+      [
+        "lib_symbol_mismatch|1066800|431800|58608ddd-0567-46f9-a621-aa2425614840|00000000-0000-0000-0000-000000000000|||",
+        "intended"
+      ],
+      [
+        "lib_symbol_mismatch|431800|292100|a743caaa-97bc-4110-b556-b61192c3c444|00000000-0000-0000-0000-000000000000|||",
+        "intended"
+      ]
+    ],
     "meta": {
       "version": 0
     },
@@ -449,9 +466,9 @@
       "endpoint_off_grid": "warning",
       "extra_units": "error",
       "field_name_whitespace": "warning",
-      "footprint_filter": "ignore",
+      "footprint_filter": "warning",
       "footprint_link_issues": "warning",
-      "four_way_junction": "ignore",
+      "four_way_junction": "warning",
       "ground_pin_not_ground": "warning",
       "hier_label_mismatch": "error",
       "isolated_pin_label": "warning",
@@ -476,8 +493,8 @@
       "similar_label_and_power": "warning",
       "similar_labels": "warning",
       "similar_power": "warning",
-      "simulation_model_issue": "ignore",
-      "single_global_label": "ignore",
+      "simulation_model_issue": "warning",
+      "single_global_label": "warning",
       "stacked_pin_name": "warning",
       "unannotated": "error",
       "unconnected_wire_endpoint": "warning",
@@ -677,7 +694,7 @@
         "uuid": "10f73b06-f992-42ef-a111-62ef459db8ef"
       }
     ],
-    "used_designators": "#FLG1-6,#PWR1-42,C1-4,J1-5,M1-5,Q1-3,R1-8,U1-10",
+    "used_designators": "#FLG1-6,#PWR1-48,C1-4,J1-8,M1-5,Q1-3,R1-9,U1-10",
     "variants": []
   },
   "sheets": [
