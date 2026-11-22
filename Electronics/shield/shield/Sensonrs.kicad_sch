@@ -2390,16 +2390,6 @@
 	)
 	(wire
 		(pts
-			(xy 246.38 121.92) (xy 246.38 124.46)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "78103a8f-ad5d-40c6-955c-0bb087cfe845")
-	)
-	(wire
-		(pts
 			(xy 246.38 59.69) (xy 246.38 66.04)
 		)
 		(stroke
@@ -2457,6 +2447,16 @@
 			(type default)
 		)
 		(uuid "a15d349b-2b6d-482f-8324-99439c37f2d2")
+	)
+	(wire
+		(pts
+			(xy 246.38 121.92) (xy 246.38 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a794a0d9-56f2-4b23-9f8b-78a55adac315")
 	)
 	(wire
 		(pts
@@ -4194,84 +4194,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
-		(at 246.38 124.46 180)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "a4a1cb08-f0dc-400f-a40a-95d340dc15a2")
-		(property "Reference" "#PWR039"
-			(at 246.38 120.65 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "3.3V"
-			(at 246.38 135.636 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 246.38 124.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 246.38 124.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 246.38 124.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d6bbe1df-8e54-4b51-ae73-8a9c4bdf5d4d")
-		)
-		(instances
-			(project "shield"
-				(path "/10f73b06-f992-42ef-a111-62ef459db8ef/27c3c17d-b1d9-4387-b2bd-6ca96398699d"
-					(reference "#PWR039")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "shield_lib:BMI270")
 		(at 43.18 29.21 0)
 		(unit 1)
@@ -4702,6 +4624,84 @@
 			(project "shield"
 				(path "/10f73b06-f992-42ef-a111-62ef459db8ef/27c3c17d-b1d9-4387-b2bd-6ca96398699d"
 					(reference "#PWR037")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3.3V")
+		(at 246.38 132.08 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ee7d3626-9e05-49d0-80e8-d11db9d29bb4")
+		(property "Reference" "#PWR047"
+			(at 246.38 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 246.38 137.16 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 246.38 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 246.38 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+			(at 246.38 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "8f01cdfd-0b19-44f0-8fdc-a51ed7cf9ab3")
+		)
+		(instances
+			(project "shield"
+				(path "/10f73b06-f992-42ef-a111-62ef459db8ef/27c3c17d-b1d9-4387-b2bd-6ca96398699d"
+					(reference "#PWR047")
 					(unit 1)
 				)
 			)
