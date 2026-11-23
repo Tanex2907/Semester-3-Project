@@ -1,5 +1,6 @@
 #include "mqtt/mqttManager.h"
 #include "api/secrets.h"
+#include "locomotion/locomotion.h"
 
 PubSubClient mqtt(client);
 String clientId = "esp32-" + String((uint32_t)ESP.getEfuseMac(), HEX);
@@ -42,11 +43,11 @@ void cmdProcessor(char* topic, byte* payload, unsigned int len)
 {
   if (strcmp(topic, "cmd/start") == 0)
   {
-    Serial.println("Started");
+    xEventGroupSetBits(eventGroupLocomotionEvent, BITSTART);
   }
   else if (strcmp(topic, "cmd/stop") == 0)
   {
-    Serial.println("Stopped");
+    xEventGroupClearBits(eventGroupLocomotionEvent, BITSTART);
   }
 }
 
@@ -99,9 +100,6 @@ void taskPublishData(void *params){
 
     serializeJson(doc, buffer);
     mqtt.publish("telemetry/livedata", buffer, true);
-
-                UBaseType_t highWater = uxTaskGetStackHighWaterMark(NULL);
-    Serial.printf("Min free stack: %u\n", (unsigned int)highWater);
 
     vTaskDelay(pdMS_TO_TICKS(5000));
   }

@@ -5,6 +5,7 @@
 #include "data/status.h"
 #include "sensors/battery.h"
 #include "sensors/capacity.h"
+#include "locomotion/locomotion.h"
 
 
 #define NETWORK_CORE      0
@@ -17,16 +18,23 @@ void setup()
   Serial.begin(115200);
   //Event Groups
   eventGroupStartEvent = xEventGroupCreate();
+  eventGroupLocomotionEvent = xEventGroupCreate();
 
   //Networking tasks
   xTaskCreatePinnedToCore(taskInitMqtt, "INIT MQTT", 4096, NULL, 1, &taskInitMqttHandler, NETWORK_CORE);
   xTaskCreatePinnedToCore(taskInitWifi, "INIT WIFI", 4096, NULL, 1, &taskInitWifiHandler, NETWORK_CORE);
   xTaskCreatePinnedToCore(taskPublishData, "PUB DATA", 3096, &data, 3, &taskPublishDataHandler, NETWORK_CORE);
   xTaskCreatePinnedToCore(taskMqtt, "Timer for mqttt", 2048, NULL, 2, NULL, NETWORK_CORE);
+  
   //App tasks
-  xTaskCreatePinnedToCore(taskReadTemperature, "TEMP READ", 1048, &data, 5, &taskReadTemperatureHandler, APP_CORE);
-  xTaskCreatePinnedToCore(taskReadBattery, "TEMP READ", 1048, &data, 5, &taskReadBatteryHandler, APP_CORE);
-  xTaskCreatePinnedToCore(taskReadCapacity, "TEMP READ", 1048, &data, 5, &taskReadCapacityHandler, APP_CORE);
+
+  //Sensor tasks for general telemetry
+  xTaskCreatePinnedToCore(taskReadTemperature, "TEMP READ", 1048, &data, 10, &taskReadTemperatureHandler, APP_CORE);
+  xTaskCreatePinnedToCore(taskReadBattery, "TEMP READ", 1048, &data, 10, &taskReadBatteryHandler, APP_CORE);
+  xTaskCreatePinnedToCore(taskReadCapacity, "TEMP READ", 1048, &data, 10, &taskReadCapacityHandler, APP_CORE);
+
+  //Locomotion Tasks
+  xTaskCreatePinnedToCore(taskForward, "Forwards", 1048, NULL, 5, &taskForwardHandler, APP_CORE);
 }
 
 void loop()
