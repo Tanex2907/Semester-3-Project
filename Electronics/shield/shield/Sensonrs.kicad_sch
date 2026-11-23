@@ -2933,7 +2933,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://cdn-learn.adafruit.com/downloads/pdf/adafruit-vl53l0x-micro-lidar-distance-sensor-breakout.pdf"
 			(at 43.18 113.03 0)
 			(hide yes)
 			(show_name no)
@@ -3747,7 +3747,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.farnell.com/datasheets/3214805.pdf"
 			(at 106.68 43.18 0)
 			(hide yes)
 			(show_name no)
@@ -4235,7 +4235,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://docs.rs-online.com/1e1c/A700000009000831.pdf"
 			(at 43.18 29.21 0)
 			(hide yes)
 			(show_name no)
@@ -4749,7 +4749,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://docs.rs-online.com/118b/0900766b80d1bdcc.pdf"
 			(at 246.38 43.18 0)
 			(hide yes)
 			(show_name no)

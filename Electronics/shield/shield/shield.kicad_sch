@@ -3422,7 +3422,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://docs.rs-online.com/7729/A700000011181234.pdf"
 			(at 146.05 77.47 0)
 			(hide yes)
 			(show_name no)

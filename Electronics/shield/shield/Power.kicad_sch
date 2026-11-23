@@ -3428,7 +3428,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.infineon.com/assets/row/public/documents/24/49/infineon-spp15p10pl-h-datasheet-en.pdf"
 			(at 246.38 127 0)
 			(hide yes)
 			(show_name no)
