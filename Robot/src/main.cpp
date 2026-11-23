@@ -6,6 +6,7 @@
 #include "sensors/battery.h"
 #include "sensors/capacity.h"
 #include "locomotion/locomotion.h"
+#include "limitSwitch/limit.h"
 
 
 #define NETWORK_CORE      0
@@ -19,6 +20,9 @@ void setup()
   //Event Groups
   eventGroupStartEvent = xEventGroupCreate();
   eventGroupLocomotionEvent = xEventGroupCreate();
+
+  //Setting up interrupts
+  setupLimitSwitches();
 
   //Networking tasks
   xTaskCreatePinnedToCore(taskInitMqtt, "INIT MQTT", 4096, NULL, 1, &taskInitMqttHandler, NETWORK_CORE);
@@ -35,6 +39,7 @@ void setup()
 
   //Locomotion Tasks
   xTaskCreatePinnedToCore(taskForward, "Forwards", 1048, NULL, 5, &taskForwardHandler, APP_CORE);
+  xTaskCreatePinnedToCore(taskBackward, "Backwards on interrupt", 1048, NULL, 24, &taskBackwardHandler, APP_CORE);
 }
 
 void loop()
