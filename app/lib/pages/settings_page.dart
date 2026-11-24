@@ -1,3 +1,4 @@
+import 'package:app/widgets/ClientSetCard.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -94,7 +95,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                 )
-                )
+                ),
+              ClientSetCard()
             ],
           )
     );

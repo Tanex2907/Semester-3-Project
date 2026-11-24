@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app/PreferenceHandler.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/BatteryIndicator.dart';
@@ -59,26 +60,30 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-  void _startStopwatch() async
-  {
-    if(!stopwatch.isRunning){
+  Future<void> _startStopwatch() async {
+    final clientId = (await PreferenceHandler.getClientID())?.trim();
+    if (!mounted) return;
 
+    if (clientId == null || clientId.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Set the Robot ID in Settings first.')),
+      );
+      return;
+    }
+
+    if (!stopwatch.isRunning) {
       stopwatch.start();
       _updateElapsedTime();
-      setState(() {
-        isPlaying = true;
-      widget.manager.publishMessage("cmd/start", "");
-      });
+      setState(() => isPlaying = true);
+      widget.manager.publishMessage('cmd/$clientId/start', '');
     } else {
-
       stopwatch.stop();
-      setState(() {
-        isPlaying = false;
-        widget.manager.publishMessage("cmd/stop", "");
-      });
+      setState(() => isPlaying = false);
+      widget.manager.publishMessage('cmd/$clientId/stop', '');
+
       final elapsedToSave = stopwatch.elapsed;
       _resetStopwatch();
-      if(elapsedToSave.inSeconds > 10) {
+      if (elapsedToSave.inSeconds > 10) {
         await _saveRuntime(elapsedToSave);
         await _increaseTimesStarted();
       }
