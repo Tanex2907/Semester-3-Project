@@ -1,6 +1,8 @@
 #pragma once
 #include "wifi/wifiManager.h"
 #include "PubSubClient.h"
+#include "api/secrets.h"
+#include "locomotion/locomotion.h"
 #include "data/status.h"
 #include "ArduinoJson.h"
 

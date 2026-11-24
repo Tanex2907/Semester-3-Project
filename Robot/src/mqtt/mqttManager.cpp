@@ -1,15 +1,16 @@
 #include "mqtt/mqttManager.h"
-#include "api/secrets.h"
-#include "locomotion/locomotion.h"
 
 PubSubClient mqtt(client);
 String clientId = "esp32-" + String((uint32_t)ESP.getEfuseMac(), HEX);
 TaskHandle_t taskInitMqttHandler = NULL;
 TaskHandle_t taskPublishDataHandler = NULL;
 
+static String startCmd = "cmd/"+ clientId + "/start";
+static String stopCmd = "cmd/" + clientId + "/stop";
+
 void taskInitMqtt(void *params)
 {
-  //do NOT clear the WiFi bit when the wait returns
+  //do NOT clear the Wi-Fi bit when the wait returns
   xEventGroupWaitBits(eventGroupStartEvent, BITWIFI, pdFALSE, pdTRUE, portMAX_DELAY);
 
   mqtt.setServer(MQTT_HOST, MQTT_PORT);
@@ -21,9 +22,10 @@ void taskInitMqtt(void *params)
     vTaskDelay(pdMS_TO_TICKS(1000));
   }
   Serial.println("Connected to MQTT");
+  Serial.println(startCmd);
 
-  mqtt.subscribe("cmd/start");
-  mqtt.subscribe("cmd/stop");
+  mqtt.subscribe(startCmd.c_str());
+  mqtt.subscribe(stopCmd.c_str());
 
   xEventGroupSetBits(eventGroupStartEvent, BITMQTT);
   vTaskDelete(NULL);
@@ -31,9 +33,11 @@ void taskInitMqtt(void *params)
 
 bool ensureMqtt() {
   if (mqtt.connected()) return true;
-  const char* willTopic = "/status";
-  bool ok = mqtt.connect(clientId.c_str(),MQTT_USER, MQTT_PWD);
-  if (ok) {
+  const bool ok = mqtt.connect(clientId.c_str(),MQTT_USER, MQTT_PWD);
+  if (ok)
+  {
+    Serial.printf("ClientId: %s\n", clientId.c_str());
+    const char* willTopic = "/status";
     mqtt.publish(willTopic, "online", true);
   }
   return ok;
@@ -41,11 +45,11 @@ bool ensureMqtt() {
 
 void cmdProcessor(char* topic, byte* payload, unsigned int len)
 {
-  if (strcmp(topic, "cmd/start") == 0)
+  if (strcmp(topic, startCmd.c_str()) == 0)
   {
     xEventGroupSetBits(eventGroupLocomotionEvent, BITSTART);
   }
-  else if (strcmp(topic, "cmd/stop") == 0)
+  else if (strcmp(topic, stopCmd.c_str()) == 0)
   {
     xEventGroupClearBits(eventGroupLocomotionEvent, BITSTART);
   }
@@ -61,8 +65,8 @@ void taskMqtt(void *params)
       xEventGroupClearBits(eventGroupStartEvent, BITMQTT);
       if (ensureMqtt())
       {
-        mqtt.subscribe("cmd/start");
-        mqtt.subscribe("cmd/stop");
+        mqtt.subscribe(startCmd.c_str());
+        mqtt.subscribe(stopCmd.c_str());
         xEventGroupSetBits(eventGroupStartEvent, BITMQTT);
       }
       else
@@ -100,6 +104,9 @@ void taskPublishData(void *params){
 
     serializeJson(doc, buffer);
     mqtt.publish("telemetry/livedata", buffer, true);
+
+                UBaseType_t highWater = uxTaskGetStackHighWaterMark(NULL);
+    Serial.printf("Min free stack: %u\n", (unsigned int)highWater);
 
     vTaskDelay(pdMS_TO_TICKS(5000));
   }

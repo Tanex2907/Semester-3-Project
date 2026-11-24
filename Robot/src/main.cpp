@@ -12,7 +12,11 @@
 #define NETWORK_CORE      0
 #define APP_CORE          1
 
-StatusData data = {0,0,0};
+static StatusData data = {
+  0,
+  0,
+  0
+};
 
 void setup()
 {
