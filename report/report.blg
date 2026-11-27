@@ -1,0 +1,58 @@
+This is BibTeX, Version 0.99e (TeX Live 2026)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: report.aux
+The style file: unsrturl.bst
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=200001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: refs/refs.bib
+Warning--entry type for "market_analysis_1" isn't style-file defined
+--line 1 of file refs/refs.bib
+Warning--entry type for "market_analysis_2" isn't style-file defined
+--line 15 of file refs/refs.bib
+Warning--entry type for "market_analysis_3" isn't style-file defined
+--line 31 of file refs/refs.bib
+You've used 3 entries,
+            2616 wiz_defined-function locations,
+            593 strings with 5184 characters,
+and the built_in function-call counts, 790 in all, are:
+= -- 72
+> -- 15
+< -- 0
++ -- 6
+- -- 3
+* -- 14
+:= -- 113
+add.period$ -- 9
+call.type$ -- 3
+change.case$ -- 3
+chr.to.int$ -- 0
+cite$ -- 3
+duplicate$ -- 21
+empty$ -- 112
+format.name$ -- 3
+if$ -- 238
+int.to.chr$ -- 0
+int.to.str$ -- 3
+missing$ -- 0
+newline$ -- 18
+num.names$ -- 3
+pop$ -- 36
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 72
+stack$ -- 0
+substring$ -- 0
+swap$ -- 3
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 3
+width$ -- 4
+write$ -- 32
+(There were 3 warnings)
